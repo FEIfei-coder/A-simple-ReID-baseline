@@ -1,0 +1,42 @@
+train:
+  root: D:\DesktopFile\Tasks\CVPaper\ReID_code\market1501
+  dataset: market1501
+  workers: 4
+  height: 256
+  width: 128
+  optim: adam
+  train_batch: 32
+  lr: 0.0003
+  step_size: 60
+  gamma: 0.1
+  weight_decay: !!float 5e-04
+  margin: 0.3
+  num_instances: 4
+  arch: resnet50
+  print_freq: 10
+  gpu_device: !!str 0
+  seed: 10
+  start_epoch: 0
+  max_epoch: 150
+  evaluate: False
+  losses:
+    - softmax
+    - trihard
+  resume: False
+  triHard_only: False
+
+test:
+  test_batch: 32
+  test_workers: 4
+  test_eval: True
+  rank: [1, 5, 10, 20]
+  test_freq: 1
+  eval_step: 1
+  start_eval: 0
+
+save_path:
+  log_dir: D:\DesktopFile\Tasks\CVPaper\ReID_code\MyBaseline\reid\log\baseline
+  checkpoint_dir: D:\DesktopFile\Tasks\CVPaper\ReID_code\MyBaseline\reid\log\checkpoint
+
+
+
