@@ -1,6 +1,8 @@
 # A-simple-ReID-baseline
 A simple reid baseline for experiment
 
+**Unfinished work**
+
 # Reference
 The codes are expanded on 
 - [ReID-baseline](https://github.com/michuanhaohao/deep-person-reid) by Luo & Liao 
