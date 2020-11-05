@@ -1,6 +1,10 @@
 # A-simple-ReID-baseline
 A simple reid baseline for experiment
 
+## 1 reference
+The codes are expanded on [ReID-baseline](https://github.com/michuanhaohao/deep-person-reid) by Luo & Liao and [open-reid](https://github.com/Cysu/open-reid) by Cysu
+
+
 The structure of the reid is shown below
 ```
 - reid
