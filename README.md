@@ -1,10 +1,18 @@
 # A-simple-ReID-baseline
 A simple reid baseline for experiment
 
-## 1 reference
-The codes are expanded on [ReID-baseline](https://github.com/michuanhaohao/deep-person-reid) by Luo & Liao and [open-reid](https://github.com/Cysu/open-reid) by Cysu
+# Reference
+The codes are expanded on 
+- [ReID-baseline](https://github.com/michuanhaohao/deep-person-reid) by Luo & Liao 
+- [open-reid](https://github.com/Cysu/open-reid) by Cysu
+- [powerful-benchmarker](https://github.com/KevinMusgrave/powerful-benchmarker) by KevinMusgrave
 
 
+# Dependencies
+- [Pytorch](https://pytorch.org/)(1.6.0)
+- [pytorch-metric-learning](https://go.ctolib.com/KevinMusgrave-pytorch_metric_learning.html)
+
+# Construction
 The structure of the reid is shown below
 ```
 - reid
