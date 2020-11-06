@@ -25,7 +25,7 @@ from utils.dataset.samplers import RandomIdentitySampler
 from utils.logging import *
 from utils.serialization import save_checkpoint, load_checkpoint
 
-from tester import *
+from evaluator import *
 from trainer import *
 
 from IPython import embed

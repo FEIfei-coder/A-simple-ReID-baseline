@@ -17,7 +17,7 @@ class ResNet50(nn.Module):
 		resnet = torchvision.models.resnet50(pretrained=False)
 		self.base = nn.Sequential(*list(resnet.children())[:-2])
 		self.classifier = nn.Linear(2048, num_classes)
-		# self.training = training
+
 		self.feature_dim = 2048
 
 		self.loss = loss

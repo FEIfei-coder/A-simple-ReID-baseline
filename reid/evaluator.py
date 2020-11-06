@@ -1,14 +1,16 @@
 from __future__ import absolute_import
 
 import time
-
 import numpy as np
+from numpy import ndarray
+
 import torch
+from torch import Tensor
 
 from utils.meter import AverageMeter
 
 
-class BaseTester(object):
+class BaseEvaluator(object):
 	def __init__(self, model, name, test_batch):
 		'''
 		:param model: the model has been trained
@@ -20,7 +22,7 @@ class BaseTester(object):
 		self.test_batch = test_batch
 
 
-	def test(self, query_loader, gallery_loader, use_gpu, ranks=None):
+	def evaluator(self, query_loader, gallery_loader, use_gpu, ranks=None):
 		'''
 		:param model: trained model
 		:param query_loader: query-larder
@@ -40,14 +42,28 @@ class BaseTester(object):
 
 		print("==> BatchTime(s)/BatchSize(img): {:.3f}/{}".format(batch_time.avg, self.test_batch))
 
+		distmat = self._pair_dist(qf, gf)
 
-	def _pair_dist(self, mat1, mat2):
+		print("==> Computing CMC & mAP & mINP <==")
+
+
+
+
+
+
+	def _pair_dist(self, mat1: Tensor, mat2: Tensor) -> ndarray:
 		'''
-		:param mat1: matrix 1 : tensor
-		:param mat2: matrix 2 : tensor
+		:param mat1: qf  matrix 1 : tensor
+		:param mat2: gf  matrix 2 : tensor
 		:return: dist between mat1 & mat2
 		'''
 		m, n = mat1.size(0), mat2.size(0)
+		distmat = torch.pow(mat1, 2).sum(dim=1, keepdim=True).expand(m, n) + \
+				  torch.pow(mat2, 2).sum(dim=1, keepdim=True).expand(n, m).t() # m * n
+		distmat.addmm_(1, -2, mat1, mat2.t()) # m * n
+		distmat = distmat.numpy() # m * n
+
+		return distmat
 
 
 	def _extract_feature(self, data_loader, use_gpu, batch_time, print_freq=1, metric=None):
@@ -63,12 +79,12 @@ class BaseTester(object):
 
 
 
-class Tester(BaseTester):
+class Tester(BaseEvaluator):
 	'''
 	the test fuc we use
 	'''
 	def _extract_feature(self, data_loader, use_gpu, batch_time, print_freq=1, metric=None):
-		features, pids, camids = [], [], []
+		f, pids, camids = [], [], []
 		for batch_idx, (imgs, pids, camids) in enumerate(data_loader):
 			if use_gpu:
 				imgs = imgs.cuda()
@@ -78,17 +94,17 @@ class Tester(BaseTester):
 			batch_time.update(time.time() - end)
 
 			features = features.data.cpu()
-			features.append(features)
+			f.append(features)
 			pids.extend(pids)
 			camids.extend(camids)
-		features = torch.cat(features, 0)
+		f = torch.cat(f, 0)
 		pids = np.asarray(pids)
 		camids = np.asarray(camids)
 
 		print("Extracted features for {} set, obtained {}-by-{} matrix".
-			  format(data_loader, features.size(0), features.size(1)))
+			  format(data_loader, f.size(0), f.size(1)))
 
-		return features, pids, camids, batch_time
+		return f, pids, camids, batch_time
 
 
 
