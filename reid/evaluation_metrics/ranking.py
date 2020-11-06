@@ -144,7 +144,3 @@ def mean_ap(distmat, query_ids=None,
 
 
 
-if __name__ == '__main__':
-	a = np.random.random_integers(low=1, high=10, size=(4, 10))
-	p = cmc(a)
-	print(p)
