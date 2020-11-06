@@ -3,8 +3,11 @@ from .ranking import *
 from .rerank import *
 
 __factory = {
-
+    'cmc': cmc_,
+    'map': mean_ap_,
+    'rerank': re_ranking
 }
+
 
 def get_factory():
     return __factory.keys()

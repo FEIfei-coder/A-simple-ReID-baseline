@@ -19,7 +19,7 @@ def _unique_sample(ids_dict, num):
 	return mask
 
 
-def cmc(distmat: ndarray, q_pids: ndarray=None,
+def cmc_(distmat: ndarray, q_pids: ndarray=None,
 		g_pids: ndarray=None, q_camids: ndarray=None,
 		g_camids: ndarray=None, max_rank=None,
 		separate_camera_id=False,
@@ -106,7 +106,7 @@ def cmc(distmat: ndarray, q_pids: ndarray=None,
 
 
 
-def mean_ap(distmat, query_ids=None,
+def mean_ap_(distmat, query_ids=None,
 			gallery_ids=None,query_cams=None,
 			gallery_cams=None):
 	m, n = distmat.shape
