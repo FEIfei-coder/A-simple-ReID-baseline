@@ -1,5 +1,5 @@
 # A-simple-ReID-baseline
-A simple reid baseline for experiment
+A simple reid baseline
 
 **Unfinished work**
 
